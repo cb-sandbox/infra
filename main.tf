@@ -5,3 +5,8 @@ module "gke" {
   region = var.region
   zone = var.zone
 }
+
+module "gce" {
+  source = "./modules/gce"
+  count = 0
+}
