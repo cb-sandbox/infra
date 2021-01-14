@@ -41,4 +41,11 @@ resource "google_compute_instance" "default" {
   }
 
   metadata_startup_script = file("${path.module}/install.sh")
+
+  count = var.agent_count
 }
+
+output "agent_ips" {
+  value = google_compute_instance.default.*.network_interface.access_config.nat_ip
+}
+
