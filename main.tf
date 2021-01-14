@@ -8,5 +8,5 @@ module "gke" {
 
 module "gce" {
   source = "./modules/gce"
-  count = var.agent_count
+  count = tonumber(var.agent_count)
 }
