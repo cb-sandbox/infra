@@ -8,5 +8,5 @@ module "gke" {
 
 module "gce" {
   source = "./modules/gce"
-  count = 0
+  count = var.agent_count
 }
