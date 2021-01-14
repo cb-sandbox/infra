@@ -45,7 +45,3 @@ resource "google_compute_instance" "default" {
   count = var.agent_count
 }
 
-output "agent_ips" {
-  value = google_compute_instance.default.*.network_interface.access_config.nat_ip
-}
-
