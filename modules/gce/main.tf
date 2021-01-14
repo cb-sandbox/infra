@@ -17,7 +17,7 @@ resource "google_compute_firewall" "tomcat" {
 }
 
 resource "google_compute_instance" "default" {
-  name = "${var.cluster_name}-agent"
+  name = "${var.cluster_name}-agent-${count.index}"
   machine_type = "n1-standard-1"
   zone = "us-central1-a"
 
