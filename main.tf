@@ -9,4 +9,5 @@ module "gke" {
 module "gce" {
   source = "./modules/gce"
   count = tonumber(var.agent_count)
+  cluster_name = var.cluster_name
 }
