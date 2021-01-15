@@ -3,7 +3,7 @@ data "google_compute_network" "default" {
 }
 
 resource "google_compute_firewall" "tomcat" {
-  name = "tomcat"
+  name = "${var.cluster_name}-tomcat"
   network = data.google_compute_network.default.name
 
   allow {
