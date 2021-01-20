@@ -8,6 +8,6 @@ module "gke" {
 
 module "gce" {
   source = "./modules/gce"
-  agent_count = var.agent_count
   cluster_name = var.cluster_name
+  count = var.agent_enabled ? 1 : 0
 }
