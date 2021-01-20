@@ -17,8 +17,7 @@ resource "google_compute_firewall" "tomcat" {
 }
 
 data "google_compute_image" "tomcat" {
-  name = "lowtouch-tomcat-mysql-agent"
-  project = var.project
+  id = "project/${var.project}/global/images/lowtouch-tomcat-mysql-agent"
 }
 
 resource "google_compute_instance" "tomcat_qa" {
