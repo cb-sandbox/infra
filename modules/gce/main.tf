@@ -20,7 +20,7 @@ data "google_compute_image" "tomcat" {
   name = "lowtouch-tomcat-mysql-agent"
 }
 
-resource "google_compute_instance" "tomcat-qa" {
+resource "google_compute_instance" "tomcat_qa" {
   name = "${var.cluster_name}-tomcat-agent-qa"
   machine_type = "n1-standard-1"
   zone = "us-central1-a"
@@ -46,7 +46,7 @@ resource "google_compute_instance" "tomcat-qa" {
 }
 
 
-resource "google_compute_instance" "tomcat-uat" {
+resource "google_compute_instance" "tomcat_uat" {
   name = "${var.cluster_name}-tomcat-agent-uat"
   machine_type = "n1-standard-1"
   zone = "us-central1-a"
