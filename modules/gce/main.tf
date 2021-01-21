@@ -3,71 +3,49 @@ data "google_compute_network" "default" {
 }
 
 resource "google_compute_firewall" "tomcat" {
-  name = "${var.cluster_name}-tomcat"
+  name    = "${var.cluster_name}-tomcat"
   network = data.google_compute_network.default.name
 
   allow {
     protocol = "tcp"
-    ports = ["8080"]
+    ports = [
+    "8080"]
   }
 
-  source_ranges = ["0.0.0.0/0"]
+  source_ranges = [
+  "0.0.0.0/0"]
 
-  target_tags = ["tomcat"]
+  target_tags = [
+  "tomcat"]
 }
 
-data "google_compute_image" "tomcat" {
-  name = "lowtouch-tomcat-mysql-agent"
-  project = "core-flow-research"
+data "google_compute_machine_image" "tomcat" {
+  name    = "lowtouch-tomcat-mysql-agent"
+  project = var.project
 }
 
-resource "google_compute_instance" "tomcat_qa" {
-  name = "${var.cluster_name}-tomcat-agent-qa"
+
+resource "google_compute_instance_from_machine_image" "tomcat_qa" {
+  name         = "${var.cluster_name}-tomcat-agent-qa"
   machine_type = "n1-standard-1"
-  zone = "us-central1-a"
+  zone         = "us-central1-a"
 
-  boot_disk {
-    initialize_params {
-      image = data.google_compute_image.tomcat
-    }
-  }
+  source_machine_image = data.google_compute_machine_image.tomcat
 
-  tags = ["tomcat"]
-
-  scratch_disk {
-    interface = "SCSI"
-  }
-
-  network_interface {
-    network = "default"
-
-    access_config {
-    }
-  }
+  tags = [
+  "tomcat"]
 }
 
 
-resource "google_compute_instance" "tomcat_uat" {
-  name = "${var.cluster_name}-tomcat-agent-uat"
+resource "google_compute_instance_from_machine_image" "tomcat_uat" {
+  name         = "${var.cluster_name}-tomcat-agent-uat"
   machine_type = "n1-standard-1"
-  zone = "us-central1-a"
+  zone         = "us-central1-a"
 
-  boot_disk {
-    initialize_params {
-      image = data.google_compute_image.tomcat
-    }
-  }
+  source_machine_image = data.google_compute_machine_image.tomcat
 
-  tags = ["tomcat"]
 
-  scratch_disk {
-    interface = "SCSI"
-  }
+  tags = [
+  "tomcat"]
 
-  network_interface {
-    network = "default"
-
-    access_config {
-    }
-  }
 }
