@@ -5,3 +5,12 @@ variable "cluster_name" {
 variable "project" {
   type = string
 }
+
+variable "region" {
+  type = string
+}
+
+
+variable "agent_enabled" {
+  type = bool
+}

@@ -18,5 +18,5 @@ variable "cluster_name" {
 
 variable "agent_enabled" {
   type = bool
-  default = false
+  default = true
 }
