@@ -49,7 +49,6 @@ resource "google_compute_instance_from_machine_image" "tomcat_uat" {
 
   count = var.agent_enabled ? 1 : 0
 
-
   provider = google-beta
   tags = [
     "tomcat"]
