@@ -11,7 +11,6 @@ resource "google_compute_firewall" "tomcat" {
   name = "${var.cluster_name}-tomcat"
   network = data.google_compute_network.default.name
 
-
   allow {
     protocol = "tcp"
     ports = [
@@ -33,8 +32,7 @@ resource "google_compute_instance_from_machine_image" "tomcat_qa" {
 
   count = var.agent_enabled ? 1 : 0
 
-
-  source_machine_image = "projects/core-flow-research/global/machineImages/lowtouch-tomcat-mysql-agent"
+  source_machine_image = "projects/${var.project}/global/machineImages/cdagent-tomcat-mysql"
 
   provider = google-beta
   tags = [
@@ -47,7 +45,7 @@ resource "google_compute_instance_from_machine_image" "tomcat_uat" {
   machine_type = "n1-standard-1"
   zone = "us-central1-a"
 
-  source_machine_image = "projects/core-flow-research/global/machineImages/lowtouch-tomcat-mysql-agent"
+  source_machine_image = "projects/${var.project}/global/machineImages/cdagent-tomcat-mysql"
 
   count = var.agent_enabled ? 1 : 0
 
@@ -57,3 +55,4 @@ resource "google_compute_instance_from_machine_image" "tomcat_uat" {
     "tomcat"]
 
 }
+
