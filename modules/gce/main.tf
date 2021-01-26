@@ -14,7 +14,10 @@ resource "google_compute_firewall" "tomcat" {
   allow {
     protocol = "tcp"
     ports = [
-      "8080"]
+      "8080",
+      "7800",
+      "3306"
+    ]
   }
 
   source_ranges = [
