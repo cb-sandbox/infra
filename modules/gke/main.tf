@@ -27,12 +27,7 @@ resource "google_container_cluster" "primary" {
       recurrence = "FREQ=WEEKLY;BYDAY=SA,SU"
     }
   }
-
-  master_auth {
-    username = random_id.username.hex
-    password = random_id.password.hex
-  }
-
+  
   ip_allocation_policy {
     services_ipv4_cidr_block = ""
     cluster_ipv4_cidr_block = ""
