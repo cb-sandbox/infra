@@ -28,7 +28,7 @@ resource "time_sleep" "create_sandbox_subnetwork" {
 }
 
 resource "google_compute_firewall" "tomcat" {
-  name = time_sleep.create_sandbox_subnetwork.triggers["network_name"]
+  name = "${var.cluster_name}-network"
   network = "${var.cluster_name}-network"
 
   allow {
