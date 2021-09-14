@@ -3,32 +3,8 @@ provider "google-beta" {
   region = var.region
 }
 
-data "google_compute_network" "default" {
-  name = "default"
-}
-
-resource "google_compute_subnetwork" "sandbox_subnetwork" {
-  name          = "${var.cluster_name}-subnet"
-  ip_cidr_range = "10.128.0.0/20"
-  region        = "us-central1"
-  network       = google_compute_network.sandbox_network.id
-}
-
-resource "google_compute_network" "sandbox_network" {
-  name                    = "${var.cluster_name}-network"
-  auto_create_subnetworks = false
-}
-
-resource "time_sleep" "create_sandbox_subnetwork" {
-  create_duration = "60s"
-  triggers = {
-    network_name = google_compute_network.sandbox_network.name
-  }
-  
-}
-
 resource "google_compute_firewall" "tomcat" {
-  name = "${var.cluster_name}-network"
+  name = var.network_name
   network = "${var.cluster_name}-network"
 
   allow {
