@@ -1,4 +1,4 @@
-data "google_compute_network" "vpc" }
+data "google_compute_network" "vpc" {
   name = var.network_name
 }
 
