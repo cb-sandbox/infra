@@ -3,8 +3,20 @@ provider "google-beta" {
   region = var.region
 }
 
+resource "google_compute_subnetwork" "sandbox_subnetwork" {
+  name          = "${var.cluster_name}-subnet"
+  ip_cidr_range = "10.128.0.0/20"
+  region        = "us-central1"
+  network       = google_compute_network.sandbox_network.id
+}
+
+resource "google_compute_network" "sandbox_network" {
+  name                    = "${var.cluster_name}-network"
+  auto_create_subnetworks = false
+}
+
 resource "google_compute_firewall" "tomcat" {
-  name = var.network_name
+  name = google_compute_network.sandbox_network.name
   network = "${var.cluster_name}-network"
 
   allow {
