@@ -1,3 +1,7 @@
+data "google_compute_network" "vpc" }
+  name = var.network_name
+}
+
 resource "random_id" "username" {
   byte_length = 14
 }
@@ -12,7 +16,7 @@ resource "google_container_cluster" "primary" {
   location = var.zone
   remove_default_node_pool = true
   initial_node_count = 1
-  network = var.network_name
+  network = data.google_compute_network.vpc.self_link
   release_channel {
     channel = "REGULAR"
   }
