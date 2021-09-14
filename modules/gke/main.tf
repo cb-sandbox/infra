@@ -1,7 +1,3 @@
-data "google_compute_network" "vpc" {
-  name = var.network_name
-}
-
 resource "random_id" "username" {
   byte_length = 14
 }
@@ -12,7 +8,7 @@ resource "random_id" "password" {
 
 resource "google_container_cluster" "primary" {
   provider = google-beta
-  name = var.cluster_name
+  name = "${var.cluster_name}-network"
   location = var.zone
   remove_default_node_pool = true
   initial_node_count = 1
