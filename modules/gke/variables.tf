@@ -14,10 +14,6 @@ variable "cluster_name" {
   type = string
 }
 
-variable "network_name" {
-  type = string
-}
-
 variable "machine_type" {
   type = string
   default = "n1-standard-4"
