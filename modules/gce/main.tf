@@ -8,6 +8,7 @@ data "google_compute_network" "default" {
 }
 
 resource "google_compute_subnetwork" "sandbox-subnetwork" {
+  create_duration = "60s"
   name          = "${var.cluster_name}-subnet"
   ip_cidr_range = "10.128.0.0/20"
   region        = "us-central1"
