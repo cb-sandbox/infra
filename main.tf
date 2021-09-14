@@ -12,5 +12,5 @@ module "gce" {
   project = var.project
   region = var.region
   zone = var.zone
-  depends_on = [modules.gce]
+  depends_on = [module.gce]
 }
