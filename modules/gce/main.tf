@@ -7,9 +7,21 @@ data "google_compute_network" "default" {
   name = "default"
 }
 
+resource "google_compute_subnetwork" "sandbox-subnetwork" {
+  name          = "${var.cluster_name}-subnet"
+  ip_cidr_range = "10.128.0.0/20"
+  region        = "us-central1"
+  network       = google_compute_network.sandbox-network.id
+}
+
+resource "google_compute_network" "sandbox-network" {
+  name                    = "${var.cluster_name}-network"
+  auto_create_subnetworks = false
+}
+
 resource "google_compute_firewall" "tomcat" {
   name = "${var.cluster_name}-tomcat"
-  network = data.google_compute_network.default.name
+  network = "${var.cluster_name}-network"
 
   allow {
     protocol = "tcp"
