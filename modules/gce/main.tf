@@ -16,8 +16,8 @@ resource "google_compute_network" "sandbox_network" {
 }
 
 resource "google_compute_firewall" "tomcat" {
-  name = google_compute_network.sandbox_network.name
-  network = "${var.cluster_name}-network"
+  name = "${var.cluster_name}-tomcat"
+  network = google_compute_network.sandbox_network.name
 
   allow {
     protocol = "tcp"
