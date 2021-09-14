@@ -8,11 +8,11 @@ resource "random_id" "password" {
 
 resource "google_container_cluster" "primary" {
   provider = google-beta
-  name = "${var.cluster_name}-network"
+  name = var.cluster_name
   location = var.zone
   remove_default_node_pool = true
   initial_node_count = 1
-  network = data.google_compute_network.vpc.self_link
+  network = "${var.cluster_name}-network"
   release_channel {
     channel = "REGULAR"
   }
