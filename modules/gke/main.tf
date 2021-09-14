@@ -12,7 +12,7 @@ resource "google_container_cluster" "primary" {
   location = var.zone
   remove_default_node_pool = true
   initial_node_count = 1
-  network = "${var.cluster_name}-network"
+  network = var.network_name
   release_channel {
     channel = "REGULAR"
   }
