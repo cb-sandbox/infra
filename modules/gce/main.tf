@@ -10,7 +10,6 @@ data "google_compute_network" "default" {
 resource "google_compute_firewall" "tomcat" {
   name = "${var.cluster_name}-tomcat"
   network = data.google_compute_network.default.name
-  subnetwork = "sandbox"
 
   allow {
     protocol = "tcp"
