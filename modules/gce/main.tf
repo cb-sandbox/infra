@@ -35,7 +35,7 @@ resource "google_compute_instance_from_machine_image" "tomcat_qa" {
 
   count = var.agent_enabled ? 1 : 0
 
-  source_machine_image = "projects/${var.project}/global/machineImages/cdagent-tomcat-mysql"
+  source_machine_image = "projects/${var.project}/global/machineImages/cdagent-tomcat-mysql-2"
 
   provider = google-beta
   tags = [
@@ -48,7 +48,7 @@ resource "google_compute_instance_from_machine_image" "tomcat_uat" {
   machine_type = "n1-standard-1"
   zone = "us-central1-a"
 
-  source_machine_image = "projects/${var.project}/global/machineImages/cdagent-tomcat-mysql"
+  source_machine_image = "projects/${var.project}/global/machineImages/cdagent-tomcat-mysql-2"
 
   count = var.agent_enabled ? 1 : 0
 
