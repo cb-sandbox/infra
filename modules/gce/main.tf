@@ -42,7 +42,7 @@ resource "google_compute_instance" "tomcat_qa" {
   count = var.agent_enabled ? 1 : 0
 
   boot_disk {
-    source = "${google_compute_disk.tomcat_qa.name}"
+    source = resource.google_compute_disk.tomcat_qa.name
     device_name = "cdagent-tomcat-mysql2"
   }
 
@@ -68,7 +68,7 @@ resource "google_compute_instance" "tomcat_uat" {
   zone = "us-central1-a"
 
   boot_disk {
-    source = "${google_compute_disk.tomcat_uat.name}"
+    source = resource.google_compute_disk.tomcat_uat.name
     device_name = "cdagent-tomcat-mysql2"
   }
 
