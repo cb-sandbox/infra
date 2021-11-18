@@ -41,7 +41,10 @@ resource "google_compute_instance" "tomcat_qa" {
 
   count = var.agent_enabled ? 1 : 0
 
-  disk = "${google_compute_disk.tomcat_qa.name}"
+  boot_disk {
+    source = "${google_compute_disk.tomcat_qa.name}"
+    device_name = "cdagent-tomcat-mysql2"
+  }
 
   network_interface {
     network = data.google_compute_network.default.name
@@ -64,7 +67,10 @@ resource "google_compute_instance" "tomcat_uat" {
   machine_type = "n1-standard-1"
   zone = "us-central1-a"
 
-  disk = "${google_compute_disk.tomcat_uat.name}"
+  boot_disk {
+    source = "${google_compute_disk.tomcat_uat.name}"
+    device_name = "cdagent-tomcat-mysql2"
+  }
 
   network_interface {
     network = data.google_compute_network.default.name
