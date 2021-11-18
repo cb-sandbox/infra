@@ -16,6 +16,9 @@ resource "google_container_cluster" "primary" {
   release_channel {
     channel = "REGULAR"
   }
+  resource_labels = {
+    cluster-name = var.cluster_name
+  }
 
   workload_identity_config {
     workload_pool = "${var.project}.svc.id.goog"
@@ -54,6 +57,9 @@ resource "google_container_node_pool" "primary_nodes" {
 
     metadata = {
       disable-legacy-endpoints = "true"
+    }
+    labels = {
+      cluster-id = var.cluster_name
     }
 
     oauth_scopes = [
