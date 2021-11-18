@@ -59,7 +59,7 @@ resource "google_compute_instance" "tomcat_qa" {
 }
 
 resource "google_compute_disk" "tomcat_uat" {
-    name  = "${var.cluster_name}-tomcat-agent-qa"
+    name  = "${var.cluster_name}-tomcat-agent-uat"
     type  = "pd-balanced"
     zone  = "us-central1-a"
     snapshot = "tomcat-agent-snapshot-1"
