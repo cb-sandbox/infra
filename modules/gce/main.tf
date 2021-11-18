@@ -27,28 +27,48 @@ resource "google_compute_firewall" "tomcat" {
     "tomcat"]
 }
 
-
-resource "google_compute_instance_from_machine_image" "tomcat_qa" {
+resource "google_compute_disk" "tomcat_qa" {
+    name  = "${var.cluster_name}-tomcat-agent-qa"
+    type  = "pd-balanced"
+    zone  = "us-central1-a"
+    snapshot = "tomcat-agent-snapshot-1"
+    size = 10
+}
+resource "google_compute_instance" "tomcat_qa" {
   name = "${var.cluster_name}-tomcat-agent-qa"
   machine_type = "n1-standard-1"
   zone = "us-central1-a"
 
   count = var.agent_enabled ? 1 : 0
 
-  source_machine_image = "projects/${var.project}/global/machineImages/cdagent-tomcat-mysql"
+  disk = "${google_compute_disk.tomcat_qa.name}"
+
+  network_interface {
+    network = data.google_compute_network.default.name
+  }
 
   provider = google-beta
   tags = [
     "tomcat"]
 }
 
-
-resource "google_compute_instance_from_machine_image" "tomcat_uat" {
+resource "google_compute_disk" "tomcat_uat" {
+    name  = "${var.cluster_name}-tomcat-agent-qa"
+    type  = "pd-balanced"
+    zone  = "us-central1-a"
+    snapshot = "tomcat-agent-snapshot-1"
+    size = 10
+}
+resource "google_compute_instance" "tomcat_uat" {
   name = "${var.cluster_name}-tomcat-agent-uat"
   machine_type = "n1-standard-1"
   zone = "us-central1-a"
 
-  source_machine_image = "projects/${var.project}/global/machineImages/cdagent-tomcat-mysql"
+  disk = "${google_compute_disk.tomcat_uat.name}"
+
+  network_interface {
+    network = data.google_compute_network.default.name
+  }
 
   count = var.agent_enabled ? 1 : 0
 
