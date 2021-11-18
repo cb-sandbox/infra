@@ -48,6 +48,9 @@ resource "google_compute_instance" "tomcat_qa" {
 
   network_interface {
     network = data.google_compute_network.default.name
+    access_config {
+      network_tier=PREMIUM
+    }
   }
 
   provider = google-beta
@@ -74,6 +77,9 @@ resource "google_compute_instance" "tomcat_uat" {
 
   network_interface {
     network = data.google_compute_network.default.name
+    access_config {
+      network_tier=PREMIUM
+    }
   }
 
   count = var.agent_enabled ? 1 : 0
