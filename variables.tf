@@ -3,12 +3,12 @@ variable "project" {
 }
 
 variable "region" {
-  type = string
+  type    = string
   default = "us-central1"
 }
 
 variable "zone" {
-  type = string
+  type    = string
   default = "us-central1-a"
 }
 
@@ -17,6 +17,6 @@ variable "cluster_name" {
 }
 
 variable "agent_enabled" {
-  type = bool
-  default = true
+  type    = bool
+  default = false
 }
