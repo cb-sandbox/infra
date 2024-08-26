@@ -29,3 +29,8 @@ variable "max_node_count" {
   default = 5
 }
 
+variable "subnet" {
+  type = string
+  default = "sandbox"
+}
+
