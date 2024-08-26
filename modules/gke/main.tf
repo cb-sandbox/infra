@@ -1,11 +1,3 @@
-resource "random_id" "username" {
-  byte_length = 14
-}
-
-resource "random_id" "password" {
-  byte_length = 16
-}
-
 resource "google_container_cluster" "primary" {
   provider = google-beta
   name = var.cluster_name
@@ -23,6 +15,8 @@ resource "google_container_cluster" "primary" {
   workload_identity_config {
     workload_pool = "${var.project}.svc.id.goog"
   }
+
+  deletion_protection = false
 
   maintenance_policy {
     recurring_window {
