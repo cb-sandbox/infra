@@ -1,8 +1,8 @@
 data "google_client_config" "default" {}
 
 data "google_container_cluster" "primary" {
-  name    = var.cluster_name
-  project = var.project
+  name     = var.cluster_name
+  project  = var.project
   location = var.location
 }
 
@@ -66,12 +66,17 @@ resource "helm_release" "cert-manager" {
   name       = "cert-manager"
   repository = "https://charts.jetstack.io"
   chart      = "cert-manager"
-  namespace = "cert-manager"
+  namespace  = "cert-manager"
 
   create_namespace = true
 
   set {
     name  = "crds.enabled"
     value = true
+  }
+
+  set {
+    name  = "crds.keep"
+    value = false
   }
 }
