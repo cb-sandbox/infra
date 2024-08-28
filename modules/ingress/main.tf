@@ -103,6 +103,7 @@ spec:
           ingress:
             class: nginx
 YAML
+  force_conflicts = true
   depends_on = [helm_release.cert-manager]
 }
 
@@ -123,5 +124,6 @@ spec:
           ingress:
             class: nginx
 YAML
+  force_conflicts = true
   depends_on = [helm_release.cert-manager]
 }
