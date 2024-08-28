@@ -1,3 +1,5 @@
+data "google_client_config" "default" {}
+
 resource "google_container_cluster" "primary" {
   project                  = var.project
   name                     = var.cluster_name
