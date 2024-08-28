@@ -85,7 +85,7 @@ resource "helm_release" "cert-manager" {
   }
 }
 
-resource "kubectl_manifest" "cluster-issuers" {
+resource "kubectl_manifest" "staging-issuer" {
   yaml_body  = <<YAML
 ---
 apiVersion: cert-manager.io/v1
@@ -102,8 +102,12 @@ spec:
       - http01:
           ingress:
             class: nginx
+YAML
+  depends_on = [helm_release.cert-manager]
+}
 
----
+resource "kubectl_manifest" "prod-issuer" {
+  yaml_body  = <<YAML
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
