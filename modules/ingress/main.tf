@@ -8,6 +8,8 @@ data "google_container_cluster" "primary" {
 
 
 terraform {
+  required_version = ">= 0.13"
+
   required_providers {
     helm = {
       source  = "hashicorp/helm"
@@ -18,8 +20,8 @@ terraform {
       version = "2.32.0"
     }
     kubectl = {
-      source  = "gavinbunney/kubectl"
-      version = "1.14.0"
+      source  = "alekc/kubectl"
+      version = "~> 2.0"
     }
   }
 }
@@ -86,7 +88,7 @@ resource "helm_release" "cert-manager" {
 }
 
 resource "kubectl_manifest" "staging-issuer" {
-  yaml_body  = <<YAML
+  yaml_body       = <<YAML
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
@@ -103,12 +105,11 @@ spec:
           ingress:
             class: nginx
 YAML
-  force_conflicts = true
-  depends_on = [helm_release.cert-manager]
+  depends_on      = [helm_release.cert-manager]
 }
 
 resource "kubectl_manifest" "prod-issuer" {
-  yaml_body  = <<YAML
+  yaml_body       = <<YAML
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
@@ -124,6 +125,5 @@ spec:
           ingress:
             class: nginx
 YAML
-  force_conflicts = true
-  depends_on = [helm_release.cert-manager]
+  depends_on      = [helm_release.cert-manager]
 }
