@@ -13,6 +13,11 @@ variable "dns_project" {
   description = "GCP Project where the DNS zone lives."
 }
 
+variable "email" {
+  type = string
+  description = "Email for cert-manager"
+}
+
 variable "cluster_name" {
   type = string
 }

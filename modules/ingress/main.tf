@@ -10,12 +10,16 @@ data "google_container_cluster" "primary" {
 terraform {
   required_providers {
     helm = {
-      source = "hashicorp/helm"
+      source  = "hashicorp/helm"
       version = "2.15.0"
     }
     kubernetes = {
-      source = "hashicorp/kubernetes"
+      source  = "hashicorp/kubernetes"
       version = "2.32.0"
+    }
+    kubectl = {
+      source  = "gavinbunney/kubectl"
+      version = "1.14.0"
     }
   }
 }
@@ -79,4 +83,41 @@ resource "helm_release" "cert-manager" {
     name  = "crds.keep"
     value = false
   }
+}
+
+resource "kubectl_manifest" "cluster-issuers" {
+  yaml_body  = <<YAML
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-staging
+spec:
+  acme:
+    email: ${var.email}
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: staging-issuer-account-key
+    solvers:
+      - http01:
+          ingress:
+            class: nginx
+
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    email: ${var.email}
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: prod-issuer-account-key
+    solvers:
+      - http01:
+          ingress:
+            class: nginx
+YAML
+  depends_on = [helm_release.cert-manager]
 }
